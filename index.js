@@ -21,19 +21,32 @@ const users = [
 
 // paginated api - getting users page by page
 app.get('/users', (req, res) => {
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 5;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
 
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const filteredUsers = users.slice(startIndex, endIndex);
+
+    const results = {};
+
+    // Previous page
+    if(startIndex > 0) {
+        results.previous = {
+            page: page - 1,
+            limit: limit
+        }
+    }
     
-    res.json({
-        page,
-        limit,
-        total: filteredUsers.length,
-        users: filteredUsers
-    });
+    // Next page
+    if(endIndex < users.length) {
+        results.next = {
+            page: page + 1,
+            limit: limit
+        }
+    }
+
+    results.users = users.slice(startIndex, endIndex);
+    res.json(results);
 
 })
 
