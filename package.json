@@ -1,0 +1,14 @@
+{
+  "name": "pagination-with-node",
+  "version": "1.0.0",
+  "description": "a paginated api with node",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Tanishqa Arora",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
